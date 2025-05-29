@@ -2,8 +2,12 @@ import { Request, Response } from "express";
 import { AppDataSource } from "../data-source";
 import { DeviceDid } from "../entities/DeviceDid";
 // Repository for User entity
+import EzrahCredsSdk from "@coincord/ezrah-creds-sdk";
 
 const didRepository = AppDataSource.getRepository(DeviceDid);
+
+// const ezrahCredsSdk = EzrahCredsSdk
+const ezrahCredsSdk = new EzrahCredsSdk();
 
 // Get all users
 export const getAllDevicedids = async (
@@ -48,16 +52,42 @@ export const createDeviceDids = async (
   res: Response,
 ): Promise<void> => {
   try {
-    const { did, public_key } = req.body;
+    const { did, public_key, device_meta } = req.body;
 
     // Create new user instance
     const devicedid = new DeviceDid();
     devicedid.did = did;
     devicedid.public = public_key;
+    devicedid.metadata = JSON.stringify(device_meta);
 
     // Save to database
     const didResult = await didRepository.save(devicedid);
-    res.status(201).json(didResult);
+
+    const claims: Record<string, unknown> = {
+      credential_type: "auth_credential",
+      first_name: "Andrew",
+      last_name: "James",
+      sex: "Male",
+      passport_id: "2478838438e9",
+      sub: did,
+      role: ["customer"],
+    };
+
+    const disclosures: string[] = <string[]>[
+      "first_name",
+      "last_name",
+      "sex",
+      "passport_id",
+      "role",
+    ];
+
+    // issue a credential for this sdk
+    await ezrahCredsSdk.issueEncryptedSDJWT(claims, disclosures, public_key);
+
+    res.status(201).json({
+      ...didResult,
+      credential_created: true,
+    });
   } catch (error: any) {
     res
       .status(500)

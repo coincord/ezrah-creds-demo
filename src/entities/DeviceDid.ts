@@ -12,6 +12,9 @@ export class DeviceDid {
   @Column() // @ts-ignore
   public: string;
 
+  @Column() // @ts-ignore
+  metadata: string;
+
   @Column({ type: "datetime", default: () => "CURRENT_TIMESTAMP" }) // @ts-ignore
   createdAt: Date;
 }

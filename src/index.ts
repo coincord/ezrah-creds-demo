@@ -11,9 +11,12 @@ import didRoutes from "./routes/did.routes";
 const app: Express = express();
 const PORT = process.env.PORT || 3000;
 
+// Create new user instance
 let corsOptions = {
   origin: "*",
-  credentials: true, // <-- REQUIRED backend setting
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: false,
 };
 
 // Middleware

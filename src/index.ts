@@ -11,8 +11,13 @@ import didRoutes from "./routes/did.routes";
 const app: Express = express();
 const PORT = process.env.PORT || 3000;
 
+let corsOptions = {
+  origin: "*",
+  credentials: true, // <-- REQUIRED backend setting
+};
+
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

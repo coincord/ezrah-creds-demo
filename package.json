@@ -10,10 +10,12 @@
   "type": "commonjs",
   "dependencies": {
     "@coincord/ezrah-creds-sdk": "^1.0.0-alpha.7",
+    "@types/jsonwebtoken": "^9.0.9",
     "better-sqlite3": "^11.10.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.24"
   },

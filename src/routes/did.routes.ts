@@ -6,7 +6,12 @@ import {
   createDeviceDids,
 } from "../controllers/devicedid.controller";
 
+import { authCheckRequest } from "../controllers/auth_request.controller";
+
 const router = Router();
+
+// auth request check
+router.get("/auth", authCheckRequest);
 
 // GET all users
 router.get("/", getAllDevicedids);

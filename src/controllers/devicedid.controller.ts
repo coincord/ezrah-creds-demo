@@ -4,7 +4,7 @@ import { DeviceDid } from "../entities/DeviceDid";
 // Repository for User entity
 import EzrahCredsSdk from "@coincord/ezrah-creds-sdk";
 
-import { faker } from "@faker-js/faker";
+// import { faker } from "@faker-js/faker";
 
 const didRepository = AppDataSource.getRepository(DeviceDid);
 // const ezrahCredsSdk = EzrahCredsSdk
@@ -64,13 +64,13 @@ export const createDeviceDids = async (
     // Save to database
     const didResult = await didRepository.save(devicedid);
 
-    const fakeSSN = faker.helpers.replaceSymbols("###-##-####");
+    // const fakeSSN = faker.helpers.replaceSymbols("###-##-####");
     const claims: Record<string, unknown> = {
       credential_type: "auth_credential",
-      first_name: faker.person.firstName(),
-      last_name: faker.person.lastName(),
-      sex: faker.person.sex(),
-      passport_id: fakeSSN,
+      first_name: "Nelson",
+      last_name: "Prince",
+      sex: "Male",
+      passport_id: "39r3h99999993-2ed83f",
       sub: did,
       role: ["customer"],
     };
